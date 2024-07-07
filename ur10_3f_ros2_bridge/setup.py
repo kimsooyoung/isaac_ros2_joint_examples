@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'ur10_ros2_publisher   = ur10_3f_ros2_bridge.ur10_ros2_publisher:main',
         ],
     },
 )

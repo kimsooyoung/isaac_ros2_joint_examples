@@ -25,8 +25,17 @@ class TestROS2Bridge(Node):
             "wrist_1_joint", 
             "wrist_2_joint", 
             "wrist_3_joint", 
-            "finger_joint", 
-            "right_outer_knuckle_joint", 
+            "palm_finger_1_joint",
+            "palm_finger_2_joint",
+            "finger_2_joint_1",
+            "finger_2_joint_2",
+            "finger_2_joint_3",
+            "finger_1_joint_1", 
+            "finger_1_joint_2",
+            "finger_1_joint_3",
+            "finger_middle_joint_1",
+            "finger_middle_joint_2",
+            "finger_middle_joint_3",
         ]
 
         num_joints = len(self.joint_state.name)
@@ -35,13 +44,22 @@ class TestROS2Bridge(Node):
         self.joint_state.position = np.array([0.0] * num_joints, dtype=np.float64).tolist()
         self.default_joints = [
             0.0, -1.0, 0.0, 0.0, 0.0, 0.0,
-            0.4, 0.4
+            0.0, 0.0,
+            0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
         ]
 
         # limiting the movements to a smaller range (this is not the range of the robot, just the range of the movement
-        self.max_joints = np.array(self.default_joints) + 0.5
-        self.min_joints = np.array(self.default_joints) - 0.5
-
+        self.max_joints = np.array([
+            0.5, -0.5, 0.5, 0.5, 0.5, 0.5,
+            10.0, 10.0,
+            70.0, 90.0, 0.0, 70.0, 90.0, 0.0, 70.0, 90.0, 0.0
+        ])
+        self.min_joints = np.array([
+            -0.5, -1.5, -0.5, -0.5, -0.5, -0.5, 
+            -10.0, -10.0,
+            0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+        ])
+        
         # position control the robot to wiggle around each joint
         self.time_start = time.time()
 
